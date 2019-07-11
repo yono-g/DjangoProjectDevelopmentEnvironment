@@ -1,0 +1,8 @@
+certifi==2019.6.16
+Django==2.2.3
+mysqlclient==1.4.2.post1
+pipenv==2018.11.26
+pytz==2019.1
+sqlparse==0.3.0
+virtualenv==16.6.1
+virtualenv-clone==0.5.3

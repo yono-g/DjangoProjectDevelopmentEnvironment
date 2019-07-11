@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  web:
+    build: ./docker/web
+    depends_on:
+      - app
+    ports:
+      - 80:80
+  app:
+    build: ./docker/app
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    working_dir: /app/mysite
+  db:
+    image: mysql:5.7.26
+    environment:
+      TZ: "Asia/Tokyo"
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mysite
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev
+    ports:
+      - 3306:3306
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./docker/db/charset.cnf:/etc/mysql/conf.d/charset.cnf
+
+volumes:
+  db-data:
