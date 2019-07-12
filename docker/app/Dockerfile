@@ -5,13 +5,12 @@ RUN apk --no-cache add tzdata && \
     apk del tzdata
 
 RUN apk --no-cache add alpine-sdk \
-    linux-headers \
     mariadb-connector-c-dev
 
-RUN pip install uwsgi
+RUN pip install gunicorn
 
 COPY ./requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt
 
-COPY ./uwsgi.ini /etc/uwsgi/uwsgi.ini
-CMD [ "uwsgi" , "--ini", "/etc/uwsgi/uwsgi.ini" ]
+COPY ./config.py /etc/gunicorn/config.py
+CMD [ "gunicorn" , "--config", "/etc/gunicorn/config.py", "mysite.wsgi:application" ]
