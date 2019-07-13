@@ -27,6 +27,7 @@ services:
     volumes:
       - db-data:/var/lib/mysql
       - ./docker/db/charset.cnf:/etc/mysql/conf.d/charset.cnf
+      - ./docker/db/sql/:/docker-entrypoint-initdb.d
 
 volumes:
   db-data:
