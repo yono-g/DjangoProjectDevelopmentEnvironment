@@ -13,7 +13,7 @@ services:
       - db
     volumes:
       - .:/app
-    working_dir: /app
+    working_dir: /app/mysite
   db:
     image: mysql:5.7.26
     environment:
