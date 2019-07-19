@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sandbox.accounts.apps.AccountsConfig',
     'sandbox.model_performance.apps.ModelPerformanceConfig',
     'sandbox.customcommand.apps.CustomcommandConfig',
 ]
