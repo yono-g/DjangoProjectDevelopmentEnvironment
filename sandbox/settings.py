@@ -128,4 +128,5 @@ STATIC_URL = '/static/'
 
 # Auth settings
 
+AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = '/'
