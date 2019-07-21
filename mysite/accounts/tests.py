@@ -6,7 +6,7 @@ class LoginTest(TestCase):
 
     def setUp(self):
         self.credentials = {
-            'username': 'test',
+            'email': 'test@example.com',
             'password': 'test',
         }
         User.objects.create_user(**self.credentials)
