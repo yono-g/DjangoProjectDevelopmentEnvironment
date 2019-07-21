@@ -19,16 +19,16 @@
                 {% if form.errors %}
                 <article class="message is-danger">
                   <div class="message-body">
-                    Your username and password didn't match. Please try again.
+                    Your email and password didn't match. Please try again.
                   </div>
                 </article>
                 {% endif %}
 
                 <div class="field">
                   <div class="control has-icons-left">
-                    <input type="text" placeholder="Username" class="input" name="username" value="{{ form.username.value|default:'' }}" required>
+                    <input type="email" placeholder="Email" class="input" name="email" value="{{ form.email.value|default:'' }}" required>
                     <span class="icon is-small is-left">
-                      <i class="fa fa-user"></i>
+                      <i class="fa fa-envelope"></i>
                     </span>
                   </div>
                 </div>
