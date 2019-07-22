@@ -8,5 +8,6 @@ urlpatterns = [
             template_name='accounts/login.html',
             form_class=EmailAuthenticationForm
         ), name='accounts.login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='accounts.logout'),
     path('', IndexView.as_view(), name='accounts.index'),
 ]
