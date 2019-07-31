@@ -1,3 +1,5 @@
+import re
+from django.core import mail
 from django.test import TestCase
 from mysite.accounts.models import User
 
@@ -18,3 +20,36 @@ class LoginTest(TestCase):
     def test_logout(self):
         response = self.client.get('/logout/', follow=True)
         self.assertFalse(response.context['user'].is_authenticated)
+
+
+class ResetPasswordTest(TestCase):
+
+    def setUp(self):
+        self.credentials = {
+            'email': 'test@example.com',
+            'password': 'test',
+        }
+        User.objects.create_user(**self.credentials)
+
+    def test_password_reset(self):
+        self.client.post('/accounts/password_reset/', {
+            'email': self.credentials['email']
+        }, follow=True)
+
+        self.assertEqual(len(mail.outbox), 1)
+
+        matchOB = re.search(r'http://testserver(.+)', mail.outbox[0].body)
+        confirm_page_path = matchOB.groups()[0]
+        response = self.client.get(confirm_page_path, follow=True)
+        redirected_path = response.request['PATH_INFO']
+        new_password = '6"Mp6s/J'
+        response = self.client.post(redirected_path, {
+            'new_password1': new_password,
+            'new_password2': new_password,
+        }, follow=True)
+
+        response = self.client.post('/login/', {
+            'email': self.credentials['email'],
+            'password': new_password
+        }, follow=True)
+        self.assertTrue(response.context['user'].is_authenticated)
