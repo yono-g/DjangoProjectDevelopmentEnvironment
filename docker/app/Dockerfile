@@ -5,7 +5,8 @@ RUN apk --no-cache add tzdata && \
     apk del tzdata
 
 RUN apk --no-cache add alpine-sdk \
-    mariadb-connector-c-dev
+    mariadb-connector-c-dev \
+    gettext
 
 RUN pip install supervisor && \
     echo_supervisord_conf > /etc/supervisord.conf && \
