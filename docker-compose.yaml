@@ -19,7 +19,7 @@ services:
     environment:
       TZ: "Asia/Tokyo"
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mysite
+      MYSQL_DATABASE: sandbox
       MYSQL_USER: dev
       MYSQL_PASSWORD: dev
     ports:
