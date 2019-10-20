@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sandbox.model_performance.apps.ModelPerformanceConfig',
+    'sandbox.customcommand.apps.CustomcommandConfig',
 ]
 
 MIDDLEWARE = [
