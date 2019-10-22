@@ -3,4 +3,4 @@ from django.views.generic import TemplateView
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
-    template_name = 'accounts/index.html'
+    template_name = 'customauth/index.html'

@@ -1,7 +1,9 @@
 import re
 from django.core import mail
+from django.urls import reverse
 from django.test import TestCase
-from mysite.accounts.models import User
+
+from sandbox.customauth.models import User
 
 
 class LoginTest(TestCase):
@@ -14,11 +16,11 @@ class LoginTest(TestCase):
         User.objects.create_user(**self.credentials)
 
     def test_login(self):
-        response = self.client.post('/login/', self.credentials, follow=True)
+        response = self.client.post(reverse('customauth:login'), self.credentials, follow=True)
         self.assertTrue(response.context['user'].is_authenticated)
 
     def test_logout(self):
-        response = self.client.get('/logout/', follow=True)
+        response = self.client.get(reverse('customauth:logout'), follow=True)
         self.assertFalse(response.context['user'].is_authenticated)
 
 
@@ -32,7 +34,7 @@ class ResetPasswordTest(TestCase):
         User.objects.create_user(**self.credentials)
 
     def test_password_reset(self):
-        self.client.post('/accounts/password_reset/', {
+        self.client.post(reverse('customauth:password_reset'), {
             'email': self.credentials['email']
         }, follow=True)
 
@@ -48,7 +50,7 @@ class ResetPasswordTest(TestCase):
             'new_password2': new_password,
         }, follow=True)
 
-        response = self.client.post('/login/', {
+        response = self.client.post(reverse('customauth:login'), {
             'email': self.credentials['email'],
             'password': new_password
         }, follow=True)

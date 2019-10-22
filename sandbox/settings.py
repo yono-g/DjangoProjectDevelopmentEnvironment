@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sandbox.accounts.apps.AccountsConfig',
     'sandbox.model_performance.apps.ModelPerformanceConfig',
     'sandbox.customcommand.apps.CustomcommandConfig',
+    'sandbox.customauth.apps.CustomauthConfig',
 ]
 
 MIDDLEWARE = [
@@ -129,10 +129,10 @@ STATIC_URL = '/static/'
 
 # Auth settings
 
-AUTH_USER_MODEL = 'accounts.User'
-LOGIN_URL = 'accounts.login'
+AUTH_USER_MODEL = 'customauth.User'
+LOGIN_URL = 'customauth:login'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = 'accounts.login'
+LOGOUT_REDIRECT_URL = 'customauth:login'
 
 
 # Email settings
