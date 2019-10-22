@@ -39,11 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sandbox.model_performance.apps.ModelPerformanceConfig',
     'sandbox.customcommand.apps.CustomcommandConfig',
+    'sandbox.customauth.apps.CustomauthConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -123,3 +125,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Auth settings
+
+AUTH_USER_MODEL = 'customauth.User'
+LOGIN_URL = 'customauth:login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'customauth:login'
+
+
+# Email settings
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# i18n settings
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'accounts')
+]
