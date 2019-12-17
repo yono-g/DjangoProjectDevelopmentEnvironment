@@ -1,8 +1,10 @@
-import factory
 import time
+
+import factory
 from django.db import connection, models
 from django.utils import timezone
 from django.test import TestCase
+from unittest import skip
 
 from sandbox.model_performance.models import Parent, Child
 
@@ -24,6 +26,7 @@ class ChildFactory(factory.django.DjangoModelFactory):
 
 class ModelPerformanceTest(TestCase):
 
+    @skip
     def test_compare_query_performance(self):
         batch_size = 1000000
         parent = ParentFactory()
@@ -61,18 +64,11 @@ class ModelPerformanceTest(TestCase):
         time_by_orm_with_values_list = by_orm_with_values_list()
 
         print('')
-        print('by ORM: %.3f seconds.' % time_by_orm)
-        print('by raw query: %.3f seconds.' % time_by_raw_query)
-        print('by ORM with values(): %.3f seconds.' % time_by_orm_with_values)
-        print('by ORM with values_list(): %.3f seconds.' % time_by_orm_with_values_list)
+        print('by ORM: %.3f seconds.' % time_by_orm)  # by ORM: 26.702 seconds.
+        print('by raw query: %.3f seconds.' % time_by_raw_query)  # by raw query: 5.662 seconds.
+        print('by ORM with values(): %.3f seconds.' % time_by_orm_with_values)  # by ORM with values(): 12.013 seconds.
+        print('by ORM with values_list(): %.3f seconds.' % time_by_orm_with_values_list) # by ORM with values_list(): 10.888 seconds.
         print('')
-
-"""
-by ORM: 26.702 seconds.
-by raw query: 5.662 seconds.
-by ORM with values(): 12.013 seconds.
-by ORM with values_list(): 10.888 seconds.
-"""
 
         self.assertTrue(time_by_orm > time_by_orm_with_values)
         self.assertTrue(time_by_orm_with_values > time_by_orm_with_values_list)
